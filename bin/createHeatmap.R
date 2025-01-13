@@ -34,7 +34,7 @@ if (testing == "Y"){
   sampleInput="sampleData.csv"
   geneInput="geneFunctions.csv"
   annoInput="annoData.csv"
-  outprefix="test"
+
 }
 
 
@@ -73,10 +73,29 @@ annoColors <- list(
 ## Create a basic heatmap##
 ################################################
 ################################################
+pheatmap(sampleData, 
+  clustering_distance_cols = 'euclidean',
+  clustering_distance_rows = 'euclidean',
+  clustering_method = 'ward.D',
+  main = "Gene Expression Heatmap",
+  filename = paste0("basic_heatmap_", outprefix, ".pdf"))
 
-
 ################################################
 ################################################
-## Create a basic heatmap##
+## Create a complex and annotated heatmap##
 ################################################
 ################################################
+pheatmap(sampleData, 
+  clustering_distance_cols = 'euclidean',
+  clustering_distance_rows = 'euclidean',
+  clustering_method = 'ward.D',
+  annotation_row = geneFunctions,
+  annotation_col = annoData,
+  annotation_colors = annoColors,
+  annotation_names_row = F, #hiding annotation row names
+  annotation_names_col = F, #hiding annotation column names
+  legend_breaks = c(-2, 0, 2), # legend customisation
+  legend_labels = c("Low", "Medium", "High"), # legend customisation
+  main = "Gene Expression Heatmap - Annotated Version",
+  filename = paste0("complex_heatmap_", outprefix, ".pdf")
+  )
